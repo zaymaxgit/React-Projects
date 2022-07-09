@@ -4,14 +4,17 @@
   box-sizing: border-box;
 }
 //----------Joint css----------
+button {
+  background-color: cornflowerblue;
+  border: none;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+input {
+  outline: none;
+}
 header {
-  button {
-    background-color: cornflowerblue;
-    border: none;
-    color: #fff;
-    border-radius: 4px;
-    cursor: pointer;
-  }
   form {
     input {
       height: 26px;
@@ -30,6 +33,7 @@ header {
   align-items: center;
   padding: 0 2rem;
   position: absolute;
+  z-index: 11;
   background-color: #fff;
   box-shadow: 0px 4px 20px 0px rgba(154, 168, 179, 0.2);
   .logo {
@@ -64,6 +68,43 @@ header {
     button {
       height: 26px;
       width: 60px;
+    }
+    button:nth-child(2) {
+      height: 26px;
+      width: 60px;
+      margin-left: 0.3rem;
+    }
+  }
+}
+//----Modal form author-----
+.form-author {
+  position: absolute;
+  width: 340px;
+  height: 200px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  top: 60px;
+  right: 0;
+  form {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    align-items: center;
+    input {
+      height: 30px;
+      margin-bottom: 0.4rem;
+      border: none;
+      border-bottom: 1px solid #999;
+      border-radius: 0;
+      width: 100%;
+    }
+    button {
+      height: 30px;
+      background-color: #476191;
+      width: 50%;
+      margin-top: 1rem;
     }
   }
 }
