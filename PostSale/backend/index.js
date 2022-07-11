@@ -20,7 +20,27 @@ const connect = mysql.createConnection({
 connect.connect((err) => {
   err ? console.log(err) : console.log("Database connect ------");
 });
-
+app.get("/post", (req, res) => {
+  connect.query("SELECT * FROM post", (err, result) => {
+    console.log(result);
+    if (result) return res.send({ post: result });
+  });
+});
+app.post("/login", (req, res) => {
+  const name = req.body.name;
+  const password = req.body.password;
+  console.log(name, password);
+  connect.query(
+    "SELECT id FROM user WHERE name = ? AND password = ?",
+    [name, password],
+    (err, result) => {
+      console.log(result);
+      if (result != []) {
+        res.send({ name: name });
+      }
+    }
+  );
+});
 app.post("/registration", (req, res) => {
   const name = req.body.name;
   const password = req.body.password;
@@ -28,7 +48,7 @@ app.post("/registration", (req, res) => {
     "SELECT id FROM user WHERE name = ? AND password = ?",
     [name, password],
     (err, result) => {
-      console.log(result.length);
+      //console.log(result.length);
       if (result.length == 0) {
         connect.query(
           "INSERT INTO user (name,password) VALUES (?,?)",
@@ -39,7 +59,7 @@ app.post("/registration", (req, res) => {
               "SELECT id FROM user WHERE name = ? AND password = ?",
               [name, password],
               (err, result) => {
-                res.send({ msg: result });
+                res.send({ id: result, name: name });
               }
             );
           }
