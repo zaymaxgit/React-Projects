@@ -22,44 +22,43 @@ connect.connect((err) => {
 });
 app.get("/post", (req, res) => {
   connect.query("SELECT * FROM post", (err, result) => {
-    console.log(result);
     if (result) return res.send({ post: result });
   });
 });
 app.post("/login", (req, res) => {
-  const name = req.body.name;
-  const password = req.body.password;
-  console.log(name, password);
+  const data = req.body;
   connect.query(
-    "SELECT id FROM user WHERE name = ? AND password = ?",
-    [name, password],
+    "SELECT * FROM user WHERE login = ? AND password = ?",
+    [data.login, data.password],
     (err, result) => {
-      console.log(result);
       if (result != []) {
-        res.send({ name: name });
+        res.send({ msg: result });
       }
+      if (err) console.log(err);
     }
   );
 });
 app.post("/registration", (req, res) => {
-  const name = req.body.name;
-  const password = req.body.password;
+  const data = req.body;
   connect.query(
-    "SELECT id FROM user WHERE name = ? AND password = ?",
-    [name, password],
+    "SELECT id FROM user WHERE login = ? AND password = ?",
+    [data.login, data.password],
     (err, result) => {
-      //console.log(result.length);
       if (result.length == 0) {
         connect.query(
-          "INSERT INTO user (name,password) VALUES (?,?)",
-          [name, password],
+          "INSERT INTO user (login,password,firstname,lastname) VALUES (?,?,?,?)",
+          [data.login, data.password, data.firstname, data.lastname],
           (err, result) => {
             if (err) return res.send({ msg: err });
             connect.query(
-              "SELECT id FROM user WHERE name = ? AND password = ?",
-              [name, password],
+              "SELECT id FROM user WHERE login = ? AND password = ?",
+              [data.login, data.password],
               (err, result) => {
-                res.send({ id: result, name: name });
+                res.send({
+                  id: result,
+                  firstname: data.firstname,
+                  lastname: data.lastname,
+                });
               }
             );
           }
@@ -67,6 +66,25 @@ app.post("/registration", (req, res) => {
       } else {
         console.log("User create....");
       }
+    }
+  );
+});
+app.post("/postAdd", (req, res) => {
+  const data = req.body;
+  connect.query(
+    "INSERT INTO post (uid,title,description,date,cost,user,img,city) VALUES (?,?,?,?,?,?,'https://dizainexpert.ru/wp-content/uploads/2020/07/foto-peregorodki-v-studii-scaled.jpg',?)",
+    [
+      data.uid,
+      data.title,
+      data.description,
+      data.date,
+      data.cost,
+      data.user,
+      data.city,
+    ],
+    (err, result) => {
+      if (result) return res.send({ msg: result });
+      if (err) return console.log(err);
     }
   );
 });

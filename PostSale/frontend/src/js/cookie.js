@@ -1,14 +1,15 @@
-export function resCookie() {
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { userCookie } from "../redux/action";
+
+export function SelectCookie() {
   var resultsCookie = document.cookie.match(
     "(^|;) ?" + "nameUserSite" + "=([^;]*)(;|$)"
   );
   if (resultsCookie) {
-    var userCookie = resultsCookie[2];
+    var userCookieData = resultsCookie[2];
   }
+  const dispatch = useDispatch();
 
-  return userCookie;
+  dispatch(userCookie(userCookieData));
 }
-/*window.onload = function () {
-  resCookie();
-  console.log(resCookie());
-};*/

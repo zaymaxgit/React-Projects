@@ -10,8 +10,8 @@ const UserFunction = (props) => {
   };
   return (
     <section className="user-funct">
-      <button>Profile</button>
-      <button onClick={userLogout}>Exit</button>
+      <button>Профиль</button>
+      <button onClick={userLogout}>Выйти</button>
     </section>
   );
 };

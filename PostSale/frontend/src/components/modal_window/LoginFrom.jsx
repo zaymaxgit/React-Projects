@@ -1,14 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
-import { useEffect } from "react";
-import { resCookie } from "../../js/cookie";
 import { useDispatch } from "react-redux";
 import { userCookie } from "../../redux/action";
 
 const LoginForm = (props) => {
   const [login, setLogin] = useState(() => {
     return {
-      name: "",
+      firstname: "",
+      lastname: "",
+      login: "",
       password: "",
       userName: "",
     };
@@ -18,19 +18,17 @@ const LoginForm = (props) => {
     e.preventDefault();
     axios
       .post("http://localhost:3001/login", {
-        name: login.name,
+        login: login.login,
         password: login.password,
       })
       .then((data) => {
-        console.log(data);
-        document.cookie = `nameUserSite=${data.data.name[0]};path=/; max-age=3600`;
+        document.cookie = `nameUserSite=${data.data.msg[0].firstname} ${data.data.msg[0].lastname};path=/; max-age=3600`;
         var resultsCookie = document.cookie.match(
           "(^|;) ?" + "nameUserSite" + "=([^;]*)(;|$)"
         );
         if (resultsCookie) {
           var userCookieName = resultsCookie[2];
         }
-        console.log(userCookieName);
         dispatch(userCookie(userCookieName));
       })
       .catch((error) => {
@@ -41,32 +39,26 @@ const LoginForm = (props) => {
     e.preventDefault();
     axios
       .post("http://localhost:3001/registration", {
-        name: login.name,
+        login: login.login,
         password: login.password,
+        firstname: login.firstname,
+        lastname: login.lastname,
       })
       .then((data) => {
-        console.log(data);
-        document.cookie = `nameUserSite=${data.data.name[0]};path=/; max-age=3600`;
+        document.cookie = `nameUserSite=${data.data.firstname} ${data.data.lastname};path=/; max-age=3600`;
         var resultsCookie = document.cookie.match(
           "(^|;) ?" + "nameUserSite" + "=([^;]*)(;|$)"
         );
         if (resultsCookie) {
           var userCookieName = resultsCookie[2];
         }
-        console.log(userCookieName);
         dispatch(userCookie(userCookieName));
       })
       .catch((error) => {
         console.log(error);
       });
   };
-  const changeLogin = (e) => {
-    e.persist();
-    setLogin((prev) => {
-      return { ...prev, [e.target.name]: [e.target.value] };
-    });
-  };
-  const changePassword = (e) => {
+  const changeUser = (e) => {
     e.persist();
     setLogin((prev) => {
       return { ...prev, [e.target.name]: [e.target.value] };
@@ -77,44 +69,62 @@ const LoginForm = (props) => {
     <section className="form-author">
       {props.formAction == "Login" ? (
         <>
+          <h1>
+            Pale<span>объявления</span>
+          </h1>
           <form onSubmit={handleFormLogin}>
             <input
-              value={login.name}
-              onChange={changeLogin}
+              value={login.login}
+              onChange={changeUser}
               type="text"
-              placeholder="Name"
-              name="name"
+              placeholder="Логин"
+              name="login"
             />
             <input
               value={login.password}
-              onChange={changePassword}
+              onChange={changeUser}
               type="password"
-              placeholder="Password"
+              placeholder="Пароль"
               name="password"
             />
-            <button type="submit">Login</button>
+            <button type="submit">Войти</button>
           </form>
         </>
       ) : (
         <>
+          <h1>
+            Pale<span>объявления</span>
+          </h1>
           <form onSubmit={handleFormRegistr}>
             <input
-              value={login.name}
-              onChange={changeLogin}
+              value={login.firtsname}
+              onChange={changeUser}
               type="text"
-              placeholder="Name"
-              name="name"
-              id="name"
+              placeholder="Имя"
+              name="firstname"
+            />
+            <input
+              value={login.lastname}
+              onChange={changeUser}
+              type="text"
+              placeholder="Фамилия"
+              name="lastname"
+            />
+            <input
+              value={login.login}
+              onChange={changeUser}
+              type="text"
+              placeholder="Логин"
+              name="login"
             />
             <input
               value={login.password}
-              onChange={changePassword}
+              onChange={changeUser}
               type="password"
-              placeholder="Password"
+              placeholder="Пароль"
               name="password"
-              id="password"
             />
-            <button type="submit">Registration</button>
+            <button type="submit">Зарегестрироваться</button>
           </form>
         </>
       )}

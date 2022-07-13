@@ -6,55 +6,49 @@ import {
   AiFillPlusSquare,
 } from "react-icons/ai";
 import LoginForm from "./modal_window/LoginFrom";
-import { useSelector } from "react-redux";
-import { resCookie } from "../js/cookie";
+import { useSelector, useDispatch } from "react-redux";
 import UserFunction from "./modal_window/UserFunction";
 import Categories from "./modal_window/Categories";
+import { Link } from "react-router-dom";
+import { SelectCookie } from "../js/cookie";
 
 const Header = (props) => {
+  SelectCookie();
+
   const [formAction, setFormAction] = useState("");
 
-  const formLogin = () => {
-    formAction == "Login" ? setFormAction("") : setFormAction("Login");
-  };
-  const formRegistr = () => {
-    formAction == "Registr" ? setFormAction("") : setFormAction("Registr");
-  };
-  const formUser = () => {
-    formAction == "User" ? setFormAction("") : setFormAction("User");
-  };
-  const formCategories = () => {
-    formAction == "Categories"
-      ? setFormAction("")
-      : setFormAction("Categories");
-  };
+  function formState(e) {
+    formAction == e ? setFormAction("") : setFormAction(e);
+  }
+
   const select = useSelector((state) => {
-    console.log(state);
     return state.cookieReducer.name;
   });
-  var x = resCookie();
-  console.log(x);
-  console.log(formAction);
+
   return (
     <>
-      {!select && !resCookie() ? (
+      {!select ? (
         <>
           <header>
-            <div className="logo">Pale</div>
+            <div className="logo">
+              <Link to="/">Pale</Link>
+            </div>
             <div className="input-search">
-              <button onClick={formCategories}>
+              <button onClick={(e) => formState("Categories")}>
                 <AiOutlineMenu />
-                Category
+                Категории
               </button>
               <form action="/" method="post">
-                <input type="text" placeholder="Search..." />
-                <input type="text" placeholder="Your city" />
+                <input type="text" placeholder="Поиск товара..." />
+                <input type="text" placeholder="Ваш город" />
                 <input type="submit" value="" hidden />
               </form>
             </div>
             <div className="user">
-              <button onClick={formLogin}>Login</button>
-              <button onClick={formRegistr}>Registr</button>
+              <button onClick={(e) => formState("Login")}>Войти</button>
+              <button onClick={(e) => formState("Registr")}>
+                Зарегестрироваться
+              </button>
             </div>
             {formAction == "Categories" ? (
               <Categories />
@@ -70,30 +64,42 @@ const Header = (props) => {
       ) : (
         <>
           <header>
-            <div className="logo">Pale</div>
+            <div className="logo">
+              <Link to="/">Pale</Link>
+            </div>
             <div className="input-search">
-              <button onClick={formCategories}>
+              <button onClick={(e) => formState("Categories")}>
                 <AiOutlineMenu />
-                Category
+                Категории
               </button>
               <form action="/" method="post">
-                <input type="text" placeholder="Search..." />
-                <input type="text" placeholder="Your city" />
+                <input type="text" placeholder="Поиск товара..." />
+                <input type="text" placeholder="Ваш город" />
                 <input type="submit" value="" hidden />
               </form>
             </div>
             <div className="user">
               <button className="post-add">
-                Post
-                <AiFillPlusSquare />
+                <Link to="post-add">
+                  Post
+                  <AiFillPlusSquare />
+                </Link>
               </button>
-              <button className="user-profile" onClick={formUser}>
-                {x}
+              <button
+                className="user-profile"
+                onClick={(e) => formState("User")}
+              >
+                {select}
                 <AiFillCaretDown />
               </button>
             </div>
-            {formAction == "Categories" ? <Categories /> : ""}
-            {formAction == "User" ? <UserFunction /> : ""}
+            {formAction == "Categories" ? (
+              <Categories />
+            ) : formAction == "User" ? (
+              <UserFunction />
+            ) : (
+              ""
+            )}
           </header>
         </>
       )}

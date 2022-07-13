@@ -24,6 +24,19 @@ header form input {
   border: 1px solid #c1c1c1;
 }
 
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: #222;
+}
+
 header {
   display: flex;
   width: 100%;
@@ -47,6 +60,9 @@ header .input-search {
 header .input-search button:nth-child(1) {
   width: 20%;
   margin-right: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 header .input-search form {
   width: 80%;
@@ -70,26 +86,36 @@ header .user button {
   width: 60px;
 }
 header .user button:nth-child(2) {
-  height: 26px;
-  width: 60px;
   margin-left: 0.3rem;
+  width: 160px;
 }
 header .user .post-add {
   background-color: #fff;
   color: #333;
   font-size: 0.9rem;
 }
+header .user .post-add a {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+header .user .post-add a svg {
+  color: cornflowerblue;
+  transform: scale(1.7);
+}
 header .user .user-profile {
   background-color: #fff;
   color: #333;
   font-size: 1rem;
   font-weight: 600;
+  height: 26px;
+  width: 16vw;
 }
 
 .form-author {
   position: absolute;
-  width: 340px;
-  height: 200px;
+  width: 400px;
+  height: 360px;
   background-color: #fff;
   display: flex;
   flex-direction: column;
@@ -97,18 +123,27 @@ header .user .user-profile {
   top: 60px;
   right: 0;
 }
+.form-author h1 {
+  text-align: center;
+  font-size: 3rem;
+}
+.form-author h1 span {
+  color: cornflowerblue;
+  font-size: 0.9rem;
+  margin-left: 0.6rem;
+}
 .form-author form {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  padding: 1rem 2rem;
   align-items: center;
 }
 .form-author form input {
-  height: 30px;
+  height: 40px;
   margin-bottom: 0.4rem;
   border: none;
-  border-bottom: 1px solid #999;
-  border-radius: 0;
+  border: 1px solid #999;
+  border-radius: 4px;
   width: 100%;
 }
 .form-author form button {
@@ -120,11 +155,19 @@ header .user .user-profile {
 
 .user-funct {
   position: absolute;
-  width: 200px;
-  height: 300px;
+  width: 13rem;
+  height: 100px;
   background-color: #fff;
   top: 60px;
-  right: 0;
+  right: 5%;
+  display: flex;
+  flex-direction: column;
+}
+.user-funct button {
+  height: 100%;
+  background-color: #fff;
+  color: #333;
+  border-radius: 0;
 }
 
 .categories-form {
@@ -142,16 +185,29 @@ main {
   background-color: #f2f4f7;
   padding: 6rem 2rem;
 }
+main .title-section {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  padding: 2rem 0;
+}
+main .title-section h2 {
+  font-size: 2rem;
+}
 main .new-post {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 0.4fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 0.4fr));
   gap: 1.5rem;
 }
 main .new-post .item-post {
-  height: 400px;
+  height: 300px;
+  background-color: #fff;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0px 4px 20px 0px rgba(155, 163, 169, 0.2);
 }
 main .new-post .item-post .img-block {
-  height: 50%;
+  height: 60%;
 }
 main .new-post .item-post .img-block img {
   width: 100%;
@@ -160,5 +216,15 @@ main .new-post .item-post .img-block img {
      object-fit: cover;
 }
 main .new-post .item-post .text-block {
-  height: 50%;
+  height: 40%;
+  padding: 1rem;
+}
+main .new-post .item-post .text-block h2 {
+  font-size: 1.25rem;
+}
+main .new-post .item-post .text-block p:nth-child(1) {
+  color: cornflowerblue;
+}
+main .new-post .item-post .text-block p:nth-child(3) {
+  color: #666;
 }/*# sourceMappingURL=style.css.map */

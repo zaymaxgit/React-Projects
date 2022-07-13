@@ -3,7 +3,6 @@ const cookieState = {
 };
 
 export const cookieReducer = (state = cookieState, action) => {
-  console.log("action", action);
   switch (action.type) {
     case "USERCOOKIE":
       return {

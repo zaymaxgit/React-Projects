@@ -8,16 +8,17 @@ const Main = (props) => {
     axios
       .get("http://localhost:3001/post")
       .then((data) => {
-        //console.log(data.data.post);
         setPost(data.data.post);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
-  console.log(post);
   return (
     <main>
+      <div className="title-section">
+        <h2>Новые объявления</h2>
+      </div>
       <section className="new-post">
         {post.map((item) => {
           return (
@@ -28,7 +29,7 @@ const Main = (props) => {
               <div className="text-block">
                 <p>{item.date}</p>
                 <h2>{item.title}</h2>
-                <p>{item.description}</p>
+
                 <p>{item.user}</p>
               </div>
             </div>
