@@ -22,7 +22,9 @@ const LoginForm = (props) => {
         password: login.password,
       })
       .then((data) => {
+        console.log(data);
         document.cookie = `nameUserSite=${data.data.msg[0].firstname} ${data.data.msg[0].lastname};path=/; max-age=3600`;
+        document.cookie = `idUser=${data.data.msg[0].id} ;path=/; max-age=3600`;
         var resultsCookie = document.cookie.match(
           "(^|;) ?" + "nameUserSite" + "=([^;]*)(;|$)"
         );

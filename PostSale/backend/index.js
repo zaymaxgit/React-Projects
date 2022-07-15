@@ -20,11 +20,14 @@ const connect = mysql.createConnection({
 connect.connect((err) => {
   err ? console.log(err) : console.log("Database connect ------");
 });
+//-----Get-----
 app.get("/post", (req, res) => {
   connect.query("SELECT * FROM post", (err, result) => {
     if (result) return res.send({ post: result });
   });
 });
+
+//----Post-----
 app.post("/login", (req, res) => {
   const data = req.body;
   connect.query(
@@ -87,6 +90,13 @@ app.post("/postAdd", (req, res) => {
       if (err) return console.log(err);
     }
   );
+});
+app.post("/profile", (req, res) => {
+  const id = req.body.id;
+  connect.query("SELECT * FROM user WHERE id = ?", [id], (err, result) => {
+    if (result) res.send({ msg: result });
+    if (err) console.log(err);
+  });
 });
 
 app.listen(3001, () => {

@@ -6,6 +6,8 @@ import Home from "./components/pages/Home";
 import PostAdd from "./components/pages/PostAdd";
 import { useEffect } from "react";
 import { ResCookie } from "./js/cookie";
+import Post from "./components/pages/Post";
+import Profile from "./components/pages/Profile";
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/post-add" element={<PostAdd />} />
+        <Route path="/post/:name" element={<Post />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </div>
   );

@@ -19,11 +19,18 @@ const PostAdd = (props) => {
   const select = useSelector((state) => {
     return state.cookieReducer.name;
   });
+  const uidCookie = () => {
+    var resultsCookie = document.cookie.match(
+      "(^|;) ?" + "idUser" + "=([^;]*)(;|$)"
+    );
+    return resultsCookie[2];
+  };
+  //console.log(uidCookie());
   const hadnleForm = (e) => {
     e.preventDefault();
     axios
       .post("http://localhost:3001/postAdd", {
-        uid: 11,
+        uid: uidCookie(),
         title: data.title,
         description: data.description,
         date: newDate,
@@ -48,37 +55,41 @@ const PostAdd = (props) => {
     <section className="page-post-add">
       <Header />
       <main>
-        <form onSubmit={hadnleForm}>
-          <input
-            value={data.title}
-            onChange={changeInput}
-            type="text"
-            placeholder="Title"
-            name="title"
-          />
-          <input
-            value={data.description}
-            onChange={changeInput}
-            type="text"
-            placeholder="Description"
-            name="description"
-          />
-          <input
-            value={data.cost}
-            onChange={changeInput}
-            type="number"
-            placeholder="Cost"
-            name="cost"
-          />
-          <input
-            value={data.city}
-            onChange={changeInput}
-            type="text"
-            placeholder="City"
-            name="city"
-          />
-          <button type="submit">Add</button>
-        </form>
+        <section className="form-add-post">
+          <form onSubmit={hadnleForm}>
+            <input
+              value={data.title}
+              onChange={changeInput}
+              type="text"
+              placeholder="Название"
+              name="title"
+            />
+            <textarea
+              value={data.description}
+              onChange={changeInput}
+              type="text"
+              placeholder="Описание объявления"
+              name="description"
+            />
+            <div>
+              <input
+                value={data.cost}
+                onChange={changeInput}
+                type="number"
+                placeholder="Цена"
+                name="cost"
+              />
+              <input
+                value={data.city}
+                onChange={changeInput}
+                type="text"
+                placeholder="Город"
+                name="city"
+              />
+              <button type="submit">Отправить объявление</button>
+            </div>
+          </form>
+        </section>
       </main>
     </section>
   );

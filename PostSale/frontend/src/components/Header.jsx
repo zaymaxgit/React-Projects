@@ -81,7 +81,7 @@ const Header = (props) => {
             <div className="user">
               <button className="post-add">
                 <Link to="post-add">
-                  Post
+                  Добавить объявление
                   <AiFillPlusSquare />
                 </Link>
               </button>

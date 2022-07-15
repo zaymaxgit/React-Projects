@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 const Main = (props) => {
   const [post, setPost] = useState([]);
@@ -23,15 +24,22 @@ const Main = (props) => {
         {post.map((item) => {
           return (
             <div key={item.id} className="item-post">
-              <div className="img-block">
-                <img src={item.img} alt="" />
-              </div>
-              <div className="text-block">
-                <p>{item.date}</p>
-                <h2>{item.title}</h2>
-
-                <p>{item.user}</p>
-              </div>
+              <NavLink
+                to={{
+                  pathname: `/post/${item.title}`,
+                }}
+                state={{ data: item }}
+              >
+                <div className="img-block">
+                  <img src={item.img} alt="" />
+                </div>
+                <div className="text-block">
+                  <h2>{item.title}</h2>
+                  <p>{item.cost} Руб.</p>
+                  <p>{item.user}</p>
+                </div>
+                <p className="city">{item.city}</p>
+              </NavLink>
             </div>
           );
         })}
