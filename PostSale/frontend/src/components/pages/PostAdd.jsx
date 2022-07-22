@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Header from "../Header";
 
@@ -12,8 +13,10 @@ const PostAdd = (props) => {
       cost: "",
       user: "",
       city: "",
+      categories: "",
     };
   });
+  const navigate = useNavigate();
   const newDate = new Date().toLocaleDateString();
 
   const select = useSelector((state) => {
@@ -28,6 +31,7 @@ const PostAdd = (props) => {
   //console.log(uidCookie());
   const hadnleForm = (e) => {
     e.preventDefault();
+    console.log(data);
     axios
       .post("http://localhost:3001/postAdd", {
         uid: uidCookie(),
@@ -37,9 +41,11 @@ const PostAdd = (props) => {
         cost: data.cost,
         user: select,
         city: data.city,
+        categories: data.categories,
       })
       .then((data) => {
         console.log(data);
+        navigate("/");
       })
       .catch((error) => {
         console.log(error);
@@ -86,6 +92,18 @@ const PostAdd = (props) => {
                 placeholder="Город"
                 name="city"
               />
+
+              <select
+                name="categories"
+                value={data.categories}
+                onChange={changeInput}
+              >
+                <option value="">Категория</option>
+                <option value="Квартира">Квартира</option>
+                <option value="Автомобиль">Автомобиль</option>
+                <option value="Одежда">Одежда</option>
+                <option value="Электроника">Электроника</option>
+              </select>
               <button type="submit">Отправить объявление</button>
             </div>
           </form>

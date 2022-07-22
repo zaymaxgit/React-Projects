@@ -48,6 +48,7 @@ const LoginForm = (props) => {
       })
       .then((data) => {
         document.cookie = `nameUserSite=${data.data.firstname} ${data.data.lastname};path=/; max-age=3600`;
+        document.cookie = `idUser=${data.data.msg[0].id} ;path=/; max-age=3600`;
         var resultsCookie = document.cookie.match(
           "(^|;) ?" + "nameUserSite" + "=([^;]*)(;|$)"
         );

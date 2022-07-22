@@ -4,3 +4,9 @@ export function userCookie(name) {
     name,
   };
 }
+export function searchPost(data) {
+  return {
+    type: "SEACRHPOST",
+    data,
+  };
+}

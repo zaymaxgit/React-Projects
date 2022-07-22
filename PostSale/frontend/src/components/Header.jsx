@@ -9,14 +9,22 @@ import LoginForm from "./modal_window/LoginFrom";
 import { useSelector, useDispatch } from "react-redux";
 import UserFunction from "./modal_window/UserFunction";
 import Categories from "./modal_window/Categories";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SelectCookie } from "../js/cookie";
+import { searchReducer } from "../redux/searchReducer";
+import { searchPost } from "../redux/action";
 
 const Header = (props) => {
   SelectCookie();
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formAction, setFormAction] = useState("");
-
+  const [search, setSearch] = useState(() => {
+    return {
+      name: "",
+      city: "",
+    };
+  });
   function formState(e) {
     formAction == e ? setFormAction("") : setFormAction(e);
   }
@@ -24,6 +32,18 @@ const Header = (props) => {
   const select = useSelector((state) => {
     return state.cookieReducer.name;
   });
+  const handleFormSearch = (e) => {
+    e.preventDefault();
+    dispatch(searchPost(search));
+    navigate("/search-post");
+  };
+  console.log(search);
+  const changeSearch = (e) => {
+    e.persist();
+    setSearch((prev) => {
+      return { ...prev, [e.target.name]: [e.target.value] };
+    });
+  };
 
   return (
     <>
@@ -38,9 +58,21 @@ const Header = (props) => {
                 <AiOutlineMenu />
                 Категории
               </button>
-              <form action="/" method="post">
-                <input type="text" placeholder="Поиск товара..." />
-                <input type="text" placeholder="Ваш город" />
+              <form onSubmit={handleFormSearch}>
+                <input
+                  type="text"
+                  placeholder="Поиск товара..."
+                  value={search.name}
+                  onChange={changeSearch}
+                  name="name"
+                />
+                <input
+                  type="text"
+                  placeholder="Ваш город"
+                  value={search.city}
+                  onChange={changeSearch}
+                  name="city"
+                />
                 <input type="submit" value="" hidden />
               </form>
             </div>
@@ -72,9 +104,21 @@ const Header = (props) => {
                 <AiOutlineMenu />
                 Категории
               </button>
-              <form action="/" method="post">
-                <input type="text" placeholder="Поиск товара..." />
-                <input type="text" placeholder="Ваш город" />
+              <form onSubmit={handleFormSearch}>
+                <input
+                  type="text"
+                  placeholder="Поиск товара..."
+                  value={search.name}
+                  onChange={changeSearch}
+                  name="name"
+                />
+                <input
+                  type="text"
+                  placeholder="Ваш город"
+                  value={search.city}
+                  onChange={changeSearch}
+                  name="city"
+                />
                 <input type="submit" value="" hidden />
               </form>
             </div>

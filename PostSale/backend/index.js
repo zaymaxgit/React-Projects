@@ -74,8 +74,9 @@ app.post("/registration", (req, res) => {
 });
 app.post("/postAdd", (req, res) => {
   const data = req.body;
+  //console.log(req.body)
   connect.query(
-    "INSERT INTO post (uid,title,description,date,cost,user,img,city) VALUES (?,?,?,?,?,?,'https://dizainexpert.ru/wp-content/uploads/2020/07/foto-peregorodki-v-studii-scaled.jpg',?)",
+    "INSERT INTO post (uid,title,description,date,cost,user,img,city,categories) VALUES (?,?,?,?,?,?,'https://dizainexpert.ru/wp-content/uploads/2020/07/foto-peregorodki-v-studii-scaled.jpg',?,?)",
     [
       data.uid,
       data.title,
@@ -84,6 +85,7 @@ app.post("/postAdd", (req, res) => {
       data.cost,
       data.user,
       data.city,
+      data.categories,
     ],
     (err, result) => {
       if (result) return res.send({ msg: result });
@@ -97,6 +99,41 @@ app.post("/profile", (req, res) => {
     if (result) res.send({ msg: result });
     if (err) console.log(err);
   });
+});
+app.post("/search-post", (req, res) => {
+  const data = req.body.data;
+  console.log("Data - ", req.body.data);
+  if (data.name[0] && data.city[0] != null) {
+    connect.query(
+      "SELECT * FROM post WHERE categories = ? AND city = ?",
+      [data.name[0], data.city[0]],
+      (err, result) => {
+        //console.log(result);
+        if (result) res.send({ msg: result });
+        if (err) console.log(err);
+      }
+    );
+  } else {
+    if (data.name[0] == null) {
+      connect.query(
+        "SELECT * FROM post WHERE city = ?",
+        [data.city[0]],
+        (err, result) => {
+          if (result) res.send({ msg: result });
+          if (err) console.log(err);
+        }
+      );
+    } else {
+      connect.query(
+        "SELECT * FROM post WHERE categories = ?",
+        [data.name[0]],
+        (err, result) => {
+          if (result) res.send({ msg: result });
+          if (err) console.log(err);
+        }
+      );
+    }
+  }
 });
 
 app.listen(3001, () => {

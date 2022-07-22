@@ -34,7 +34,10 @@ const Main = (props) => {
                   <img src={item.img} alt="" />
                 </div>
                 <div className="text-block">
-                  <h2>{item.title}</h2>
+                  <h2>
+                    {item.title}
+                    <span>{item.categories}</span>
+                  </h2>
                   <p>{item.cost} Руб.</p>
                   <p>{item.user}</p>
                 </div>

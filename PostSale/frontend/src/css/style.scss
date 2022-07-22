@@ -11,6 +11,7 @@ button {
   border-radius: 4px;
   cursor: pointer;
 }
+select,
 input {
   outline: none;
 }
@@ -233,6 +234,10 @@ main {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
+        span{
+          display: inline-block;
+          text-transform:capitalize;
+        }
         h2 {
           font-size: 1.25rem;
         }

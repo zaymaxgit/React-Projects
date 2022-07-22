@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { ResCookie } from "./js/cookie";
 import Post from "./components/pages/Post";
 import Profile from "./components/pages/Profile";
+import Search from "./components/pages/Search";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/post-add" element={<PostAdd />} />
         <Route path="/post/:name" element={<Post />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/search-post" element={<Search />} />
       </Routes>
     </div>
   );

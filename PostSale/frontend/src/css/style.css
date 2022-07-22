@@ -12,6 +12,7 @@ button {
   cursor: pointer;
 }
 
+select,
 input {
   outline: none;
 }
@@ -237,6 +238,10 @@ main .new-post .item-post .text-block {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+}
+main .new-post .item-post .text-block span {
+  display: inline-block;
+  text-transform: capitalize;
 }
 main .new-post .item-post .text-block h2 {
   font-size: 1.25rem;
